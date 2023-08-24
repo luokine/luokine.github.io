@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<search> 
+  
+  
+    
+    <entry>
+      <title>GitHub代理失效</title>
+      <link href="/2023/08/24/GitHub%E4%BB%A3%E7%90%86%E5%A4%B1%E6%95%88/"/>
+      <url>/2023/08/24/GitHub%E4%BB%A3%E7%90%86%E5%A4%B1%E6%95%88/</url>
+      
+        <content type="html"><![CDATA[<h1 id="GitHub执行命令失败"><a href="#GitHub执行命令失败" class="headerlink" title="GitHub执行命令失败"></a>GitHub执行命令失败</h1><p><strong>错误代码</strong>  </p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Failed to connect to github.com port 443</span><br></pre></td></tr></table></figure><h2 id="本地已经启动了VPN"><a href="#本地已经启动了VPN" class="headerlink" title="本地已经启动了VPN"></a>本地已经启动了VPN</h2><p>网页可以打开github。说明命令行在拉取&#x2F;推送代码时并没有使用vpn进行代理<br>说明VPN配置，并没有生效，需要单独给git配置代理</p><h3 id="socks5"><a href="#socks5" class="headerlink" title="socks5"></a>socks5</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">git config --global http.proxy socks5 127.0.0.1:7890</span><br><span class="line">git config --global https.proxy socks5 127.0.0.1:7890</span><br></pre></td></tr></table></figure><h3 id="http"><a href="#http" class="headerlink" title="http"></a>http</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"># 如果是 socks5</span><br><span class="line">git config --global http.proxy 127.0.0.1:7890</span><br><span class="line">git config --global https.proxy 127.0.0.1:7890</span><br></pre></td></tr></table></figure><p><img src="https://raw.githubusercontent.com/luokine/blogimage/master/img/20230824152505.png"></p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 程序猿日常 </category>
+          
+          <category> GitHub </category>
+          
+          <category> 代理 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> GitHub </tag>
+            
+            <tag> 代理 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>我的博客历程</title>
+      <link href="/2023/08/24/%E6%88%91%E7%9A%84%E5%8D%9A%E5%AE%A2%E5%8E%86%E7%A8%8B/"/>
+      <url>/2023/08/24/%E6%88%91%E7%9A%84%E5%8D%9A%E5%AE%A2%E5%8E%86%E7%A8%8B/</url>
+      
+        <content type="html"><![CDATA[<h2 id="博客的创建"><a href="#博客的创建" class="headerlink" title="博客的创建"></a>博客的创建</h2><h3 id="对Hexo-的简单使用"><a href="#对Hexo-的简单使用" class="headerlink" title="对Hexo 的简单使用"></a>对Hexo 的简单使用</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">hexo clean  //编译打包</span><br><span class="line">hexo g      // 更新</span><br><span class="line">hexo s --debug // debug模式运行，可以不重新启动，更新内容</span><br><span class="line">hexo new page 张三  // 会在 /source/下 创建&quot;张三&quot;目录 并且创建一个index.md文件</span><br><span class="line">hexo new 我的博客 // 会在_posts/下创建一个名为&quot;我的博客&quot; 的md文件</span><br></pre></td></tr></table></figure><p><img src="https://raw.githubusercontent.com/luokine/blogimage/master/img/1268388.jpg" alt="背景图"></p><h3 id="gitee作为图床"><a href="#gitee作为图床" class="headerlink" title="gitee作为图床"></a>gitee作为图床</h3><p><img src="https://raw.githubusercontent.com/luokine/blogimage/master/img/20230824140937.png"></p><ol><li>gitee 目前不支持图床，增加了防盗链，无法直接访问</li><li>会一直提示重定向多次，访问失败</li><li>更新图床的仓库，改为GitHub+Picgo</li></ol><h3 id="GitHub作为图床"><a href="#GitHub作为图床" class="headerlink" title="GitHub作为图床"></a>GitHub作为图床</h3><ul><li><strong>新建图床的仓库</strong>  </li><li><strong>创建新的授权token</strong><br><img src="https://raw.githubusercontent.com/luokine/blogimage/master/img/20230824141315.png"></li><li><strong>更新PicGo设置</strong><br><img src="https://raw.githubusercontent.com/luokine/blogimage/master/img/20230824141108.png"></li></ul>]]></content>
+      
+      
+      <categories>
+          
+          <category> 程序猿日常 </category>
+          
+          <category> 博客 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 博客 </tag>
+            
+            <tag> 日记 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>Hello World</title>
+      <link href="/2023/08/23/hello-world/"/>
+      <url>/2023/08/23/hello-world/</url>
+      
+        <content type="html"><![CDATA[<p>Welcome to <a href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p><h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/writing.html">Writing</a></p><h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/server.html">Server</a></p><h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/generating.html">Generating</a></p><h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 程序猿日常 </category>
+          
+          <category> 测试 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 博客 </tag>
+            
+            <tag> 测试 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+  
+  
+</search>
