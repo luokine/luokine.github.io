@@ -4,11 +4,65 @@
   
     
     <entry>
+      <title>一款方便的远程桌面工具</title>
+      <link href="/2023/08/28/%E4%B8%80%E6%AC%BE%E6%96%B9%E4%BE%BF%E7%9A%84%E8%BF%9C%E7%A8%8B%E6%A1%8C%E9%9D%A2%E5%B7%A5%E5%85%B7/"/>
+      <url>/2023/08/28/%E4%B8%80%E6%AC%BE%E6%96%B9%E4%BE%BF%E7%9A%84%E8%BF%9C%E7%A8%8B%E6%A1%8C%E9%9D%A2%E5%B7%A5%E5%85%B7/</url>
+      
+        <content type="html"><![CDATA[<p>最近，看到一款不错的远程桌面软件，马上拿出来推荐给大家，如果有需要的可以看看。  </p><p>今天要推荐的远程桌面软件就是这款叫Getscreen的软件，推荐理由挺简单，就3点：  </p><ol><li><p><strong>简单易用</strong>：只需要两步就能轻松连上远程桌面</p><ul><li>第一步：在需要被远程连接的机器上下载它的Agent程序并启动，点击Send获得一个链接</li><li>第二步：在其他机器上打开浏览器，使用第一步中的链接，就能轻松连上远程桌面了</li></ul><p>使用方法是不是非常简单呢？不需要任何技术知识。</p></li><li><p><strong>多平台支持</strong>：支持windows、macOS、Linux以及Android<br>对于windows、macOS、Linux比较常规了，但是还有个Android，TJ在想是不是也能用来控制手机？这个TJ还没尝试，感兴趣的小伙伴可以试试看。</p></li><li><p><strong>个人用户基本免费</strong><br>Getscreen的付费机制也比较友好，对于免费用户，可以支持2个设备，相信大部分个人用户也基本够用了。</p></li></ol><p>最后，官方网站：<a href="https://getscreen.me/">https://getscreen.me/</a></p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 程序猿日常 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 博客 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>推荐一款不错的远程连接工具</title>
+      <link href="/2023/08/28/%E6%8E%A8%E8%8D%90%E4%B8%80%E6%AC%BE%E4%B8%8D%E9%94%99%E7%9A%84%E8%BF%9C%E7%A8%8B%E8%BF%9E%E6%8E%A5%E5%B7%A5%E5%85%B7/"/>
+      <url>/2023/08/28/%E6%8E%A8%E8%8D%90%E4%B8%80%E6%AC%BE%E4%B8%8D%E9%94%99%E7%9A%84%E8%BF%9C%E7%A8%8B%E8%BF%9E%E6%8E%A5%E5%B7%A5%E5%85%B7/</url>
+      
+        <content type="html"><![CDATA[<h1 id="远程客户端"><a href="#远程客户端" class="headerlink" title="远程客户端"></a>远程客户端</h1><p>推荐一款自己使用过程中发现的一款不错的远程连接工具  </p><h2 id="finalshell"><a href="#finalshell" class="headerlink" title="finalshell"></a>finalshell</h2><p>贴一下官方的下载链接：<br><a href="http://www.hostbuf.com/t/988.html">官网下载地址</a><br>特别提一下，<strong>官方的这个是收费的版本，各取所需，大伙都懂。需要的可以找绿色版</strong><br>支持mac、linux、Windows<br>其实有绿色版的，但是。。你懂的。后面我会更新绿色版的使用教程<br><img src="https://raw.githubusercontent.com/luokine/blogimage/master/img/20230828111844.png"></p><h3 id="界面"><a href="#界面" class="headerlink" title="界面"></a>界面</h3><p><strong>即使是免费版的，这个界面，有点Mac的感觉，这个感觉还不错</strong><br><a href="https://raw.githubusercontent.com/luokine/blogimage/master/img/20230828112352.png"></a></p><h3 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h3><p>背景图片选择：如果是免费版的不支持自定义本地图片<br>如果是免费版的话，就直接选择默认吧<br><img src="https://raw.githubusercontent.com/luokine/blogimage/master/img/20230828113720.png"></p><h3 id="字体"><a href="#字体" class="headerlink" title="字体"></a>字体</h3><p>字体还是挺重要的，大家都明白，看日志、或者差命令的时候，特别重视字体，要不然眼睛不舒服<br><strong>我自用的是个浅紫色的字体，大小是12</strong><br><img src="https://raw.githubusercontent.com/luokine/blogimage/master/img/20230828113848.png"><br><img src="https://raw.githubusercontent.com/luokine/blogimage/master/img/20230828114056.png"><br><img src="https://raw.githubusercontent.com/luokine/blogimage/master/img/20230828114150.png"><br><img src="https://raw.githubusercontent.com/luokine/blogimage/master/img/20230828114252.png"></p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 程序猿日常 </category>
+          
+          <category> 远程连接 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 博客 </tag>
+            
+            <tag> 远程连接 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>GitHub代理失效</title>
       <link href="/2023/08/24/GitHub%E4%BB%A3%E7%90%86%E5%A4%B1%E6%95%88/"/>
       <url>/2023/08/24/GitHub%E4%BB%A3%E7%90%86%E5%A4%B1%E6%95%88/</url>
       
-        <content type="html"><![CDATA[<h1 id="GitHub执行命令失败"><a href="#GitHub执行命令失败" class="headerlink" title="GitHub执行命令失败"></a>GitHub执行命令失败</h1><p><strong>错误代码</strong>  </p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Failed to connect to github.com port 443</span><br></pre></td></tr></table></figure><h2 id="本地已经启动了VPN"><a href="#本地已经启动了VPN" class="headerlink" title="本地已经启动了VPN"></a>本地已经启动了VPN</h2><p>网页可以打开github。说明命令行在拉取&#x2F;推送代码时并没有使用vpn进行代理<br>说明VPN配置，并没有生效，需要单独给git配置代理</p><h3 id="socks5"><a href="#socks5" class="headerlink" title="socks5"></a>socks5</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">git config --global http.proxy socks5 127.0.0.1:7890</span><br><span class="line">git config --global https.proxy socks5 127.0.0.1:7890</span><br></pre></td></tr></table></figure><h3 id="http-实测有效"><a href="#http-实测有效" class="headerlink" title="http(实测有效)"></a><strong>http</strong>(实测有效)</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"># 如果是 socks5</span><br><span class="line">git config --global http.proxy 127.0.0.1:7890</span><br><span class="line">git config --global https.proxy 127.0.0.1:7890</span><br></pre></td></tr></table></figure><p><img src="https://raw.githubusercontent.com/luokine/blogimage/master/img/20230824152505.png"></p>]]></content>
+        <content type="html"><![CDATA[<h1 id="GitHub执行命令失败"><a href="#GitHub执行命令失败" class="headerlink" title="GitHub执行命令失败"></a>GitHub执行命令失败</h1><p><strong>错误代码</strong>  </p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Failed to connect to github.com port 443</span><br></pre></td></tr></table></figure><h2 id="本地已经启动了VPN"><a href="#本地已经启动了VPN" class="headerlink" title="本地已经启动了VPN"></a>本地已经启动了VPN</h2><p>网页可以打开github。说明命令行在拉取&#x2F;推送代码时并没有使用vpn进行代理<br>说明VPN配置，并没有生效，需要单独给git配置代理</p><h3 id="socks5"><a href="#socks5" class="headerlink" title="socks5"></a>socks5</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git config --global http.proxy socks5 127.0.0.1:7890</span><br><span class="line">git config --global https.proxy socks5 127.0.0.1:7890</span><br></pre></td></tr></table></figure><h3 id="http-实测有效"><a href="#http-实测有效" class="headerlink" title="http(实测有效)"></a><strong>http</strong>(实测有效)</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git config --global http.proxy 127.0.0.1:7890</span><br><span class="line">git config --global https.proxy 127.0.0.1:7890</span><br></pre></td></tr></table></figure><p><img src="https://raw.githubusercontent.com/luokine/blogimage/master/img/20230824152505.png"></p><h2 id="关闭VPN"><a href="#关闭VPN" class="headerlink" title="关闭VPN"></a>关闭VPN</h2><ol><li>windows会在当前路径下: C:\Users\TZQ.gitconfig</li><li>这个gitconfig文件会影响正常的git访问  </li><li>比如：当vpn关闭后，再执行公司内部的git pull、push等操作会报错：502</li><li>建议：当关闭vpn的时候把此配置打开<br><img src="https://raw.githubusercontent.com/luokine/blogimage/master/img/20230825164119.png"></li></ol>]]></content>
       
       
       <categories>
@@ -27,35 +81,6 @@
             <tag> GitHub </tag>
             
             <tag> 代理 </tag>
-            
-        </tags>
-      
-    </entry>
-    
-    
-    
-    <entry>
-      <title>我的博客历程</title>
-      <link href="/2023/08/24/%E6%88%91%E7%9A%84%E5%8D%9A%E5%AE%A2%E5%8E%86%E7%A8%8B/"/>
-      <url>/2023/08/24/%E6%88%91%E7%9A%84%E5%8D%9A%E5%AE%A2%E5%8E%86%E7%A8%8B/</url>
-      
-        <content type="html"><![CDATA[<h2 id="博客的创建"><a href="#博客的创建" class="headerlink" title="博客的创建"></a>博客的创建</h2><h3 id="对Hexo-的简单使用"><a href="#对Hexo-的简单使用" class="headerlink" title="对Hexo 的简单使用"></a>对Hexo 的简单使用</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">hexo clean  //编译打包</span><br><span class="line">hexo g      // 更新</span><br><span class="line">hexo s --debug // debug模式运行，可以不重新启动，更新内容</span><br><span class="line">hexo new page 张三  // 会在 /source/下 创建&quot;张三&quot;目录 并且创建一个index.md文件</span><br><span class="line">hexo new 我的博客 // 会在_posts/下创建一个名为&quot;我的博客&quot; 的md文件</span><br></pre></td></tr></table></figure><p><img src="https://raw.githubusercontent.com/luokine/blogimage/master/img/1268388.jpg" alt="背景图"></p><h3 id="gitee作为图床"><a href="#gitee作为图床" class="headerlink" title="gitee作为图床"></a>gitee作为图床</h3><p><img src="https://raw.githubusercontent.com/luokine/blogimage/master/img/20230824140937.png"></p><ol><li>gitee 目前不支持图床，增加了防盗链，无法直接访问</li><li>会一直提示重定向多次，访问失败</li><li>更新图床的仓库，改为GitHub+Picgo<br>gitee 作为图床外链图片失效：解决方案如下：<br>使用hexo提供的插件，过滤掉相应的跳转header<br><code>hexo-filter-nofollow</code></li></ol><h3 id="GitHub作为图床"><a href="#GitHub作为图床" class="headerlink" title="GitHub作为图床"></a>GitHub作为图床</h3><ul><li><strong>新建图床的仓库</strong>  </li><li><strong>创建新的授权token</strong><br><img src="https://raw.githubusercontent.com/luokine/blogimage/master/img/20230824141315.png"></li><li><strong>更新PicGo设置</strong><br><img src="https://raw.githubusercontent.com/luokine/blogimage/master/img/20230824141108.png"></li></ul><h3 id="Hexo框架"><a href="#Hexo框架" class="headerlink" title="Hexo框架"></a>Hexo框架</h3><p><a href="https://hexo.io/zh-cn/">Hexo 框架</a></p><h4 id="搜索框"><a href="#搜索框" class="headerlink" title="搜索框"></a>搜索框</h4><p><code>npm install hexo-generator-search --save</code></p><h4 id="图片懒加载"><a href="#图片懒加载" class="headerlink" title="图片懒加载"></a>图片懒加载</h4><p><code>npm install hexo-lazyload-image</code></p><h3 id="butterfly主题"><a href="#butterfly主题" class="headerlink" title="butterfly主题"></a>butterfly主题</h3><ul><li><a href="https://www.butterfly1.cn/">butterfly主题</a></li><li>通过修改butterfly&#x2F; 下的_config.yml使其对应的样式生效</li><li>外观和功能都很不错，推荐</li></ul>]]></content>
-      
-      
-      <categories>
-          
-          <category> 程序猿日常 </category>
-          
-          <category> 博客 </category>
-          
-      </categories>
-      
-      
-        <tags>
-            
-            <tag> 博客 </tag>
-            
-            <tag> 日记 </tag>
             
         </tags>
       
@@ -116,6 +141,35 @@
             <tag> 插件 </tag>
             
             <tag> Hexo </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>我的博客历程</title>
+      <link href="/2023/06/24/%E6%88%91%E7%9A%84%E5%8D%9A%E5%AE%A2%E5%8E%86%E7%A8%8B/"/>
+      <url>/2023/06/24/%E6%88%91%E7%9A%84%E5%8D%9A%E5%AE%A2%E5%8E%86%E7%A8%8B/</url>
+      
+        <content type="html"><![CDATA[<h2 id="博客的创建"><a href="#博客的创建" class="headerlink" title="博客的创建"></a>博客的创建</h2><p>之前使用CSDN比较多，但是因为广告太多了，实在受不了<br>决定迁移博客内容到自己的博客下面<br>自己的博客其实也是基于github构建的，毕竟免费嘛。。。懂的都懂了  </p><h3 id="博客迁移"><a href="#博客迁移" class="headerlink" title="博客迁移"></a>博客迁移</h3><p>对原有CSDN的博客进行导出、迁移<br>我这里引用了CSDN的大神的方法，直接贴链接吧<br>文章转载自：<a href="https://blog.csdn.net/wangrui1573/article/details/124662720">CSDN导出为markdown</a><br>主要执行的是这段代码：  </p><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> s=<span class="variable language_">document</span>.<span class="title function_">createElement</span>(<span class="string">&#x27;script&#x27;</span>);s.<span class="property">type</span>=<span class="string">&#x27;text/javascript&#x27;</span>;<span class="variable language_">document</span>.<span class="property">body</span>.<span class="title function_">appendChild</span>(s);s.<span class="property">src</span>=<span class="string">&#x27;//cdn.jsdelivr.net/gh/ame-yu/csdn-move@latest/dist/index.js&#x27;</span>;</span><br></pre></td></tr></table></figure><h3 id="对Hexo-的简单使用"><a href="#对Hexo-的简单使用" class="headerlink" title="对Hexo 的简单使用"></a>对Hexo 的简单使用</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">hexo clean  //编译打包</span><br><span class="line">hexo g      // 更新</span><br><span class="line">hexo s --debug // debug模式运行，可以不重新启动，更新内容</span><br><span class="line">hexo new page 张三  // 会在 /source/下 创建&quot;张三&quot;目录 并且创建一个index.md文件</span><br><span class="line">hexo new 我的博客 // 会在_posts/下创建一个名为&quot;我的博客&quot; 的md文件</span><br></pre></td></tr></table></figure><p><img src="https://raw.githubusercontent.com/luokine/blogimage/master/img/1268388.jpg" alt="背景图"></p><h3 id="gitee作为图床"><a href="#gitee作为图床" class="headerlink" title="gitee作为图床"></a>gitee作为图床</h3><p><img src="https://raw.githubusercontent.com/luokine/blogimage/master/img/20230824140937.png"></p><ol><li>gitee 目前不支持图床，增加了防盗链，无法直接访问</li><li>会一直提示重定向多次，访问失败</li><li>更新图床的仓库，改为GitHub+Picgo<br>gitee 作为图床外链图片失效：解决方案如下：<br>使用hexo提供的插件，过滤掉相应的跳转header<br><code>hexo-filter-nofollow</code></li></ol><h3 id="GitHub作为图床"><a href="#GitHub作为图床" class="headerlink" title="GitHub作为图床"></a>GitHub作为图床</h3><ul><li><strong>新建图床的仓库</strong>  </li><li><strong>创建新的授权token</strong><br><img src="https://raw.githubusercontent.com/luokine/blogimage/master/img/20230824141315.png"></li><li><strong>更新PicGo设置</strong><br><img src="https://raw.githubusercontent.com/luokine/blogimage/master/img/20230824141108.png"></li></ul><h3 id="Hexo框架"><a href="#Hexo框架" class="headerlink" title="Hexo框架"></a>Hexo框架</h3><p><a href="https://hexo.io/zh-cn/">Hexo 框架</a></p><h4 id="搜索框"><a href="#搜索框" class="headerlink" title="搜索框"></a>搜索框</h4><p><code>npm install hexo-generator-search --save</code></p><h4 id="图片懒加载"><a href="#图片懒加载" class="headerlink" title="图片懒加载"></a>图片懒加载</h4><p><code>npm install hexo-lazyload-image</code></p><h3 id="butterfly主题"><a href="#butterfly主题" class="headerlink" title="butterfly主题"></a>butterfly主题</h3><ul><li><a href="https://www.butterfly1.cn/">butterfly主题</a></li><li>通过修改butterfly&#x2F; 下的_config.yml使其对应的样式生效</li><li>外观和功能都很不错，推荐</li></ul>]]></content>
+      
+      
+      <categories>
+          
+          <category> 程序猿日常 </category>
+          
+          <category> 博客 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 博客 </tag>
+            
+            <tag> 日记 </tag>
             
         </tags>
       
