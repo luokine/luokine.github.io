@@ -1,0 +1,204 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>初识AQS | 假象</title><meta name="author" content="luokine"><meta name="copyright" content="luokine"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="源码解读-AQSAQS（AbstractQueuedSynchronizer）是Java中用于构建同步器的基础框架，它提供了一种底层的、可扩展的机制，用于实现各种同步器，如锁、信号量、计数器等。AQS的核心思想是基于FIFO队列（双向队列）管理等待线程，并提供了一些方法和模板供开发者实现自定义的同步器。 AQS的简单理解可以分为以下几个要点：  队列管理：AQS通过维护一个等待队列来管理等待某个共">
+<meta property="og:type" content="article">
+<meta property="og:title" content="初识AQS">
+<meta property="og:url" content="https://luokine.github.io/2023/09/21/%E5%88%9D%E8%AF%86AQS/index.html">
+<meta property="og:site_name" content="假象">
+<meta property="og:description" content="源码解读-AQSAQS（AbstractQueuedSynchronizer）是Java中用于构建同步器的基础框架，它提供了一种底层的、可扩展的机制，用于实现各种同步器，如锁、信号量、计数器等。AQS的核心思想是基于FIFO队列（双向队列）管理等待线程，并提供了一些方法和模板供开发者实现自定义的同步器。 AQS的简单理解可以分为以下几个要点：  队列管理：AQS通过维护一个等待队列来管理等待某个共">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://raw.githubusercontent.com/luokine/blogimage/master/img/default.png">
+<meta property="article:published_time" content="2023-09-21T07:02:21.000Z">
+<meta property="article:modified_time" content="2023-10-11T05:58:48.637Z">
+<meta property="article:author" content="luokine">
+<meta property="article:tag" content="博客">
+<meta property="article:tag" content="Java">
+<meta property="article:tag" content="AQS">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/luokine/blogimage/master/img/default.png"><link rel="shortcut icon" href="https://raw.githubusercontent.com/luokine/blogimage/master/img/%25E5%25A4%25B4%25E5%2583%258F-new.jpg"><link rel="canonical" href="https://luokine.github.io/2023/09/21/%E5%88%9D%E8%AF%86AQS/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":false,"top_n_per_article":1,"unescape":false,"languages":{"hits_empty":"找不到您查询的内容：${query}","hits_stats":"共找到 ${hits} 篇文章"}},
+  translate: {"defaultEncoding":2,"translateDelay":0,"msgToTraditionalChinese":"繁","msgToSimplifiedChinese":"簡"},
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '天',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: {"limitCount":50,"languages":{"author":"作者: luokine","link":"链接: ","source":"来源: 假象","info":"著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。"}},
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '初识AQS',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2023-10-11 13:58:48'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+    win.getCSS = (url,id = false) => new Promise((resolve, reject) => {
+      const link = document.createElement('link')
+      link.rel = 'stylesheet'
+      link.href = url
+      if (id) link.id = id
+      link.onerror = reject
+      link.onload = link.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        link.onload = link.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(link)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><meta name="generator" content="Hexo 6.3.0"></head><body><div id="web_bg"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="/img/loading.gif" data-original="https://raw.githubusercontent.com/luokine/blogimage/master/img/%25E5%25A4%25B4%25E5%2583%258F-new.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">8</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">11</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">10</div></a></div><hr class="custom-hr"/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fa fa-heartbeat"></i><span> 清单</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/gallery/"><i class="fa-fw fas fa-images"></i><span> 照片</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> 电影</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('https://raw.githubusercontent.com/luokine/blogimage/master/img/1268388.jpg')"><nav id="nav"><span id="blog-info"><a href="/" title="假象"><span class="site-name">假象</span></a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search" href="javascript:void(0);"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fa fa-heartbeat"></i><span> 清单</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/gallery/"><i class="fa-fw fas fa-images"></i><span> 照片</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> 电影</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">初识AQS</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2023-09-21T07:02:21.000Z" title="发表于 2023-09-21 15:02:21">2023-09-21</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2023-10-11T05:58:48.637Z" title="更新于 2023-10-11 13:58:48">2023-10-11</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E7%A8%8B%E5%BA%8F%E7%8C%BF%E6%97%A5%E5%B8%B8/">程序猿日常</a><i class="fas fa-angle-right post-meta-separator"></i><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E7%A8%8B%E5%BA%8F%E7%8C%BF%E6%97%A5%E5%B8%B8/%E6%BA%90%E7%A0%81/">源码</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">1.1k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>3分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="初识AQS"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h2 id="源码解读-AQS"><a href="#源码解读-AQS" class="headerlink" title="源码解读-AQS"></a>源码解读-AQS</h2><p>AQS（AbstractQueuedSynchronizer）是Java中用于构建同步器的基础框架，<br>它提供了一种底层的、可扩展的机制，用于实现各种同步器，如锁、信号量、计数器等。<br>AQS的核心思想是基于FIFO队列（双向队列）管理等待线程，并提供了一些方法和模板供开发者实现自定义的同步器。</p>
+<p>AQS的简单理解可以分为以下几个要点：</p>
+<ol>
+<li>队列管理：AQS通过维护一个等待队列来管理等待某个共享资源的线程。 这些线程按照先进先出（FIFO）的顺序排队等待获取资源。</li>
+<li>同步状态：AQS内部维护一个同步状态（通常是一个整数），代表着资源的可用性。当资源被占用时，同步状态减小，当资源被释放时，同步状态增加。</li>
+<li>获取和释放：AQS提供了acquire和release等方法，用于线程获取和释放资源。线程在获取资源时，如果资源不可用，会被阻塞并加入到等待队列中，直到资源可用。当线程释放资源时，等待队列中的某个线程会被唤醒继续执行。</li>
+<li>模板方法：AQS定义了一些抽象方法，如tryAcquire、tryRelease等，供开发者根据具体的同步需求来实现。这些方法在获取和释放资源时会被回调。</li>
+<li>条件变量：AQS还提供了Condition接口，用于支持条件等待和通知。它允许线程在某个条件不满足时等待，直到满足条件时被唤醒。</li>
+</ol>
+<h2 id="Elasticsearch解读"><a href="#Elasticsearch解读" class="headerlink" title="Elasticsearch解读"></a>Elasticsearch解读</h2><p>什么是Elasticsearch，它的主要特点是什么？</p>
+<p>回答：Elasticsearch是一个开源的分布式搜索和分析引擎，具有实时性、分布式性、多数据源支持、全文搜索和分析等特点。<br>什么是Elasticsearch的分词器（tokenizer）和分析器（analyzer）？</p>
+<p>回答：分词器负责将文本字段拆分为词条，分析器是一系列的分词器和过滤器，用于处理文本数据并构建倒排索引。常见的分词器包括标准分词器、较差分词器、自定义分词器等。<br>什么是倒排索引（Inverted Index）？</p>
+<p>回答：倒排索引是Elasticsearch中的核心数据结构，它将词条映射到文档中的位置。倒排索引使得快速的全文搜索成为可能。<br>什么是文档（Document）和索引（Index）？</p>
+<p>回答：文档是Elasticsearch中的基本数据单元，它是一条JSON格式的数据记录。索引是文档的集合，每个文档都属于一个索引。索引在搜索和分析时起到了重要作用。<br>如何创建索引和映射（mapping）？</p>
+<p>回答：可以使用PUT请求向Elasticsearch服务器发送JSON格式的映射定义来创建索引。映射定义描述了索引中的字段类型、分词器等信息。<br>什么是Elasticsearch的查询DSL（Domain Specific Language）？</p>
+<p>回答：Elasticsearch使用JSON格式的查询DSL来构建查询请求，它包括各种查询类型，如match、term、bool、filter等，用于构建复杂的查询条件。<br>Elasticsearch的分布式特性是如何实现的？</p>
+<p>回答：Elasticsearch使用分片和副本机制来实现分布式存储和高可用性。索引可以分成多个分片，每个分片可以有多个副本，这些分片和副本可以分布在不同的节点上。<br>什么是Elasticsearch的聚合（Aggregation）？</p>
+<p>回答：聚合是一种用于分析数据的功能，它允许您根据一组文档计算汇总统计信息，如平均值、总和、最大值等。<br>如何实现Elasticsearch的安全性？</p>
+<p>回答：Elasticsearch支持基于角色的访问控制、TLS&#x2F;SSL加密、认证插件等安全功能来保护集群的安全性。<br>Elasticsearch与传统关系型数据库的区别是什么？</p>
+<p>回答：Elasticsearch是面向文本的全文搜索引擎，而关系型数据库是结构化数据的存储和查询工具。Elasticsearch更适用于全文搜索和非结构化数据，而关系型数据库更适用于事务性和结构化数据。</p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="https://luokine.github.io">luokine</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="https://luokine.github.io/2023/09/21/%E5%88%9D%E8%AF%86AQS/">https://luokine.github.io/2023/09/21/初识AQS/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://luokine.github.io" target="_blank">假象</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E5%8D%9A%E5%AE%A2/">博客</a><a class="post-meta__tags" href="/tags/Java/">Java</a><a class="post-meta__tags" href="/tags/AQS/">AQS</a></div><div class="post_share"><div class="social-share" data-image="https://raw.githubusercontent.com/luokine/blogimage/master/img/default.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2023/10/11/%E5%AE%9E%E7%94%A8%E7%9A%84%E5%86%85%E7%BD%91%E5%B7%A5%E5%85%B7-NPS/" title="实用的内网工具-NPS"><img class="cover" src="/img/loading.gif" data-original="https://raw.githubusercontent.com/luokine/blogimage/master/img/1309265.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">实用的内网工具-NPS</div></div></a></div><div class="next-post pull-right"><a href="/2023/08/28/%E4%B8%80%E6%AC%BE%E6%96%B9%E4%BE%BF%E7%9A%84%E8%BF%9C%E7%A8%8B%E6%A1%8C%E9%9D%A2%E5%B7%A5%E5%85%B7/" title="一款方便的远程桌面工具"><img class="cover" src="/img/loading.gif" data-original="https://raw.githubusercontent.com/luokine/blogimage/master/img/1265747.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">一款方便的远程桌面工具</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><div><a href="/2023/08/23/hello-world/" title="Hello World"><img class="cover" src="/img/loading.gif" data-original="https://raw.githubusercontent.com/luokine/blogimage/master/img/1256748.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-08-23</div><div class="title">Hello World</div></div></a></div><div><a href="/2023/08/28/%E4%B8%80%E6%AC%BE%E6%96%B9%E4%BE%BF%E7%9A%84%E8%BF%9C%E7%A8%8B%E6%A1%8C%E9%9D%A2%E5%B7%A5%E5%85%B7/" title="一款方便的远程桌面工具"><img class="cover" src="/img/loading.gif" data-original="https://raw.githubusercontent.com/luokine/blogimage/master/img/1265747.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-08-28</div><div class="title">一款方便的远程桌面工具</div></div></a></div><div><a href="/2023/08/22/%E5%8D%9A%E5%AE%A2%E6%8F%92%E4%BB%B6%E6%B1%87%E6%80%BB/" title="博客插件汇总"><img class="cover" src="/img/loading.gif" data-original="https://raw.githubusercontent.com/luokine/blogimage/master/img/550963.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-08-22</div><div class="title">博客插件汇总</div></div></a></div><div><a href="/2023/10/11/%E5%AE%9E%E7%94%A8%E7%9A%84%E5%86%85%E7%BD%91%E5%B7%A5%E5%85%B7-NPS/" title="实用的内网工具-NPS"><img class="cover" src="/img/loading.gif" data-original="https://raw.githubusercontent.com/luokine/blogimage/master/img/1309265.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-10-11</div><div class="title">实用的内网工具-NPS</div></div></a></div><div><a href="/2023/06/24/%E6%88%91%E7%9A%84%E5%8D%9A%E5%AE%A2%E5%8E%86%E7%A8%8B/" title="我的博客历程-Hexo的使用"><img class="cover" src="/img/loading.gif" data-original="https://raw.githubusercontent.com/luokine/blogimage/master/img/default.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-06-24</div><div class="title">我的博客历程-Hexo的使用</div></div></a></div><div><a href="/2023/08/28/%E6%8E%A8%E8%8D%90%E4%B8%80%E6%AC%BE%E4%B8%8D%E9%94%99%E7%9A%84%E8%BF%9C%E7%A8%8B%E8%BF%9E%E6%8E%A5%E5%B7%A5%E5%85%B7/" title="推荐一款不错的远程连接工具"><img class="cover" src="/img/loading.gif" data-original="https://raw.githubusercontent.com/luokine/blogimage/master/img/default.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-08-28</div><div class="title">推荐一款不错的远程连接工具</div></div></a></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="/img/loading.gif" data-original="https://raw.githubusercontent.com/luokine/blogimage/master/img/%25E5%25A4%25B4%25E5%2583%258F-new.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">luokine</div><div class="author-info__description">不求最好，但求更好！</div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">8</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">11</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">10</div></a></div><a id="card-info-btn" href="https://luokine.github.io/"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="https://luokine.github.io" target="_blank" title="Github"><i class="fab fa-github" style="color: #24292e;"></i></a><a class="social-icon" href="mailto:tluokine@gmail.com" target="_blank" title="Email"><i class="fas fa-envelope" style="color: #4a7dbe;"></i></a><a class="social-icon" href="https://blog.csdn.net/qq_43349493" target="_blank" title="CSDN"><i class="fas fa-book-open"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">博客升级，勇于记录</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%BA%90%E7%A0%81%E8%A7%A3%E8%AF%BB-AQS"><span class="toc-number">1.</span> <span class="toc-text">源码解读-AQS</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Elasticsearch%E8%A7%A3%E8%AF%BB"><span class="toc-number">2.</span> <span class="toc-text">Elasticsearch解读</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2023/10/11/%E5%AE%9E%E7%94%A8%E7%9A%84%E5%86%85%E7%BD%91%E5%B7%A5%E5%85%B7-NPS/" title="实用的内网工具-NPS"><img src="/img/loading.gif" data-original="https://raw.githubusercontent.com/luokine/blogimage/master/img/1309265.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="实用的内网工具-NPS"/></a><div class="content"><a class="title" href="/2023/10/11/%E5%AE%9E%E7%94%A8%E7%9A%84%E5%86%85%E7%BD%91%E5%B7%A5%E5%85%B7-NPS/" title="实用的内网工具-NPS">实用的内网工具-NPS</a><time datetime="2023-10-11T06:00:20.000Z" title="发表于 2023-10-11 14:00:20">2023-10-11</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2023/09/21/%E5%88%9D%E8%AF%86AQS/" title="初识AQS"><img src="/img/loading.gif" data-original="https://raw.githubusercontent.com/luokine/blogimage/master/img/default.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="初识AQS"/></a><div class="content"><a class="title" href="/2023/09/21/%E5%88%9D%E8%AF%86AQS/" title="初识AQS">初识AQS</a><time datetime="2023-09-21T07:02:21.000Z" title="发表于 2023-09-21 15:02:21">2023-09-21</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2023/08/28/%E4%B8%80%E6%AC%BE%E6%96%B9%E4%BE%BF%E7%9A%84%E8%BF%9C%E7%A8%8B%E6%A1%8C%E9%9D%A2%E5%B7%A5%E5%85%B7/" title="一款方便的远程桌面工具"><img src="/img/loading.gif" data-original="https://raw.githubusercontent.com/luokine/blogimage/master/img/1265747.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="一款方便的远程桌面工具"/></a><div class="content"><a class="title" href="/2023/08/28/%E4%B8%80%E6%AC%BE%E6%96%B9%E4%BE%BF%E7%9A%84%E8%BF%9C%E7%A8%8B%E6%A1%8C%E9%9D%A2%E5%B7%A5%E5%85%B7/" title="一款方便的远程桌面工具">一款方便的远程桌面工具</a><time datetime="2023-08-28T08:14:16.000Z" title="发表于 2023-08-28 16:14:16">2023-08-28</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2023/08/28/%E6%8E%A8%E8%8D%90%E4%B8%80%E6%AC%BE%E4%B8%8D%E9%94%99%E7%9A%84%E8%BF%9C%E7%A8%8B%E8%BF%9E%E6%8E%A5%E5%B7%A5%E5%85%B7/" title="推荐一款不错的远程连接工具"><img src="/img/loading.gif" data-original="https://raw.githubusercontent.com/luokine/blogimage/master/img/default.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="推荐一款不错的远程连接工具"/></a><div class="content"><a class="title" href="/2023/08/28/%E6%8E%A8%E8%8D%90%E4%B8%80%E6%AC%BE%E4%B8%8D%E9%94%99%E7%9A%84%E8%BF%9C%E7%A8%8B%E8%BF%9E%E6%8E%A5%E5%B7%A5%E5%85%B7/" title="推荐一款不错的远程连接工具">推荐一款不错的远程连接工具</a><time datetime="2023-08-28T03:06:07.000Z" title="发表于 2023-08-28 11:06:07">2023-08-28</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2023/08/24/GitHub%E4%BB%A3%E7%90%86%E5%A4%B1%E6%95%88/" title="GitHub代理失效"><img src="/img/loading.gif" data-original="https://raw.githubusercontent.com/luokine/blogimage/master/img/550963.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="GitHub代理失效"/></a><div class="content"><a class="title" href="/2023/08/24/GitHub%E4%BB%A3%E7%90%86%E5%A4%B1%E6%95%88/" title="GitHub代理失效">GitHub代理失效</a><time datetime="2023-08-24T07:13:38.000Z" title="发表于 2023-08-24 15:13:38">2023-08-24</time></div></div></div></div></div></div></main><footer id="footer" style="background-image: url('https://raw.githubusercontent.com/luokine/blogimage/master/img/1268388.jpg')"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2023 By luokine</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="translateLink" type="button" title="简繁转换">繁</button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="/js/tw_cn.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.umd.min.js"></script><div class="js-pjax"></div><script id="canvas_nest" defer="defer" color="0,0,255" opacity="0.7" zIndex="-1" count="99" mobile="false" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/canvas-nest.min.js"></script><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/activate-power-mode.min.js"></script><script>POWERMODE.colorful = true;
+POWERMODE.shake = true;
+POWERMODE.mobile = true;
+document.body.addEventListener('input', POWERMODE);
+</script><script id="click-show-text" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/click-show-text.min.js" data-mobile="false" data-text="富强,民主,文明,和谐,平等,公正,法治,爱国,敬业,诚信,友善" data-fontsize="15px" data-random="false" async="async"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="is-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据库加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div><hr/><div class="no-result" id="local-search-results"></div><div id="local-search-stats-wrap"></div></div></div><div id="search-mask"></div><script src="/js/search/local-search.js"></script></div></div>
+        <style>
+            [bg-lazy] {
+                background-image: none !important;
+                background-color: #eee !important;
+            }
+        </style>
+        <script>
+            window.imageLazyLoadSetting = {
+                isSPA: false,
+                preloadRatio: 1,
+                processImages: null,
+            };
+        </script><script>window.addEventListener("load",function(){var t=/\.(gif|jpg|jpeg|tiff|png)$/i,r=/^data:image\/[a-z]+;base64,/;Array.prototype.slice.call(document.querySelectorAll("img[data-original]")).forEach(function(a){var e=a.parentNode;"A"===e.tagName&&(e.href.match(t)||e.href.match(r))&&(e.href=a.dataset.original)})});</script><script>!function(r){r.imageLazyLoadSetting.processImages=t;var e=r.imageLazyLoadSetting.isSPA,n=r.imageLazyLoadSetting.preloadRatio||1,c=a();function a(){var t=Array.prototype.slice.call(document.querySelectorAll("img[data-original]")),e=Array.prototype.slice.call(document.querySelectorAll("[bg-lazy]"));return t.concat(e)}function t(){e&&(c=a());for(var t,o=0;o<c.length;o++)0<=(t=(t=c[o]).getBoundingClientRect()).bottom&&0<=t.left&&t.top<=(r.innerHeight*n||document.documentElement.clientHeight*n)&&function(){var t,e,n,a,i=c[o];e=function(){c=c.filter(function(t){return i!==t}),r.imageLazyLoadSetting.onImageLoaded&&r.imageLazyLoadSetting.onImageLoaded(i)},(t=i).hasAttribute("bg-lazy")?(t.removeAttribute("bg-lazy"),e&&e()):(n=new Image,a=t.getAttribute("data-original"),n.onload=function(){t.src=a,t.removeAttribute("data-original"),e&&e()},t.src!==a&&(n.src=a))}()}function i(){clearTimeout(t.tId),t.tId=setTimeout(t,500)}t(),document.addEventListener("scroll",i),r.addEventListener("resize",i),r.addEventListener("orientationchange",i)}(this);</script></body></html>
